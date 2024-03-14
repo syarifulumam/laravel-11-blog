@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
+Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
 
 Route::get('/', function () {
     return view('welcome');

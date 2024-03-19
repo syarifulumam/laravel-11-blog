@@ -15,9 +15,11 @@
 </head>
 
 <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900">
-    @include('layouts.navbar')
-    <x-breadcrumb />
-    <x-table />
+    
+    
+
+
 </body>
+
 
 </html>

@@ -1,24 +1,38 @@
 <?php
 
 use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+//authentication
 Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
+//profile
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+//category
+// Route::get('/category', [CategoryController::class,'index'])->name('category.index');
+// Route::get('/category/{category}/edit', [CategoryController::class,'edit'])->name('category.edit');
+// Route::put('/category/{category}', [CategoryController::class,'update'])->name('category.update');
+// Route::post('/category', [CategoryController::class,'store'])->name('category.store');
+// Route::delete('/category/{category}', [CategoryController::class,'destroy'])->name('category.destroy');
+Route::resource('/category', CategoryController::class)->except(['show','create']);
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/coba', function () {
+    return view('coba');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
 
 require __DIR__.'/auth.php';

@@ -13,9 +13,10 @@ class CategoryController extends Controller
         return view('category.index', compact('categories'));
     }
     public function store(Request $request){
-        Category::create([
-            'title' => $request->title
+        $validate = $request->validate([
+            'title' => ['required'],
         ]);
+        Category::create($validate);
         return redirect()->route('category.index')->with('message','berhasil menambah category');
     }
     public function edit($id){

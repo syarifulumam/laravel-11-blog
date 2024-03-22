@@ -18,35 +18,32 @@
                             </div>
                         </form>
                     </div>
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <x-primary-button data-modal-target="crud-modal" data-modal-toggle="crud-modal">Add
-                            Category</x-primary-button>
-                    </div>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">No</th>
-                                <th scope="col" class="px-24 py-3">Title</th>
+                                <th scope="col" class="px-24 py-3">Name</th>
+                                <th scope="col" class="px-24 py-3">Role</th>
                                 <th scope="col" class="py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($users as $user)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $loop->iteration }}</td>
-                                    <td class="px-24 py-3">{{ $category->title }}</td>
+                                    <td class="px-24 py-3">{{ $user->name }}</td>
+                                    <td class="px-24 py-3">{{ $user->role }}</td>
                                     <td class="py-3">
                                         <div class="inline-flex rounded-md shadow-sm" role="group">
-                                            <a href="{{ route('category.edit', $category->id) }}">
+                                            <a href="{{ route('user.edit', $user->id) }}">
                                                 <x-button-group class="rounded-s-lg"><x-icons.edit /></x-button-group>
                                             </a>
-                                            <x-button-group class="rounded-e-lg" data-modal-target="popup-modal-{{ $category->id }}" data-modal-toggle="popup-modal-{{ $category->id }}">
+                                            <x-button-group class="rounded-e-lg" data-modal-target="popup-modal-{{ $user->id }}" data-modal-toggle="popup-modal-{{ $user->id }}">
                                                 <x-icons.trash />
                                             </x-button-group>
-                                            <x-modal-delete route="{{ route('category.destroy', $category->id) }}" id="{{ $category->id }}"/>
+                                            <x-modal-delete route="{{ route('user.destroy', $user->id) }}" id="{{ $user->id }}"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -55,12 +52,11 @@
                     </table>
                 </div>
                 <nav class="items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
-                    {{ $categories->links() }}
+                    {{ $users->links() }}
                 </nav>
             </div>
         </div>
     </section>
-    <x-form-modal route='category.store' id="crud-modal" />
     @if (session()->has('message'))
         <div id="toast-success"
             class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 fixed top-5 right-5 z-50 border border-green-300 bg-green-50"

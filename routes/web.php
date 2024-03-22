@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 //authentication
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function () {
 // Route::post('/category', [CategoryController::class,'store'])->name('category.store');
 // Route::delete('/category/{category}', [CategoryController::class,'destroy'])->name('category.destroy');
 Route::resource('/category', CategoryController::class)->except(['show','create']);
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('user.destroy');
+// Route::resource('/user', UserController::class)->except('show','create','store');
 
 Route::get('/', function () {
     return view('welcome');

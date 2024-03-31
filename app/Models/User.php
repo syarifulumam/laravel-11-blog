@@ -53,6 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    public function articles(){
+       return $this->hasMany(Article::class);
+    }
+
     public static function generateUserName($username,$id){
         // jika username null
         if($username == null){

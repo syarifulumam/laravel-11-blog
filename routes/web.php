@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,13 +31,15 @@ Route::resource('/category', CategoryController::class)->except(['show','create'
 // Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('user.destroy');
 Route::resource('/user', UserController::class)->except('show','create','store');
 //article
-Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
-Route::post('/article', [ArticleController::class, 'store'])->name('article.store');
-Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
-Route::get('/article/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
-Route::put('/article/{article}', [ArticleController::class, 'update'])->name('article.update');
-Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
-
+// Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
+// Route::post('/article', [ArticleController::class, 'store'])->name('article.store');
+// Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+// Route::get('/article/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
+// Route::put('/article/{article}', [ArticleController::class, 'update'])->name('article.update');
+// Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
+Route::resource('/article', ArticleController::class)->except('show');
+//dashboard
+Route::get('/dashboard', DashboardController::class)->name('dashboard');
 //laravel file manager
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -49,9 +52,9 @@ Route::get('/coba', function () {
     return view('coba');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 

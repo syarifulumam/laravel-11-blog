@@ -7,12 +7,13 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class ArticleController extends Controller
 {
     public function index(){
         $articles = Article::latest()->paginate(6);
-        return view('articles.index', compact('articles'));
+        return view('articles.index',compact('articles'));
     }
     public function create(){
         $categories = Category::all();

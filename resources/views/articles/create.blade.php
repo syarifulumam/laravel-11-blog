@@ -18,7 +18,7 @@
             }
         </style>
     @endpush
-    <x-breadcrumb />
+    {{ Breadcrumbs::render('article.create') }}
     <div class="p-4 sm:ml-64">
         <div class="p-4  rounded-lg bg-white dark:bg-gray-800 ">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new article</h2>

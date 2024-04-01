@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-breadcrumb />
+    {{ Breadcrumbs::render('user.edit', $user) }}
     <div class="p-4 sm:ml-64">
         <div class="p-4  rounded-lg bg-white dark:bg-gray-800 ">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Edit user</h2>

@@ -19,6 +19,9 @@ class ArticleController extends Controller
         $categories = Category::all();
         return view('articles.create',compact('categories'));
     }
+    public function show(Article $article){
+        return view('articles.show', compact('article'));
+    }
     public function store(ArticleRequest $request){
         $validated = $request->validated();
         $thumbnail = $request->file('thumbnail');

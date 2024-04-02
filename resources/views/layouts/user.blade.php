@@ -17,11 +17,10 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navbar')
-            <x-sidebar></x-sidebar>
+            @include('layouts.user-navbar')
 
             <!-- Page Content -->
-            <main>
+            <main class="dark:text-gray-400">
                 {{ $slot }}
             </main>
         </div>

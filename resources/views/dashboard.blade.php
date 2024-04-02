@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-breadcrumb />
+    {{ Breadcrumbs::render('home') }}
     <section class="p-2 sm:ml-64">
         <div class="mx-auto max-w-screen-xl px-2 columns-3">
             <a href="#"

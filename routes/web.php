@@ -4,11 +4,12 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-//authentication
+//authentication google
 Route::get('/auth/google/redirect', [ProviderController::class, 'redirect']);
 Route::get('/auth/google/callback', [ProviderController::class, 'callback']);
 //profile
@@ -16,38 +17,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('/article', ArticleController::class)->except('show');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::resource('/category', CategoryController::class)->except(['show','create']);
+    Route::resource('/user', UserController::class)->except('show','create','store');
 });
-//category
-// Route::get('/category', [CategoryController::class,'index'])->name('category.index');
-// Route::get('/category/{category}/edit', [CategoryController::class,'edit'])->name('category.edit');
-// Route::put('/category/{category}', [CategoryController::class,'update'])->name('category.update');
-// Route::post('/category', [CategoryController::class,'store'])->name('category.store');
-// Route::delete('/category/{category}', [CategoryController::class,'destroy'])->name('category.destroy');
-Route::resource('/category', CategoryController::class)->except(['show','create']);
-//user
-// Route::get('/user', [UserController::class, 'index'])->name('user.index');
-// Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-// Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
-// Route::delete('/user/{user}',[UserController::class, 'destroy'])->name('user.destroy');
-Route::resource('/user', UserController::class)->except('show','create','store');
-//article
-// Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
-// Route::post('/article', [ArticleController::class, 'store'])->name('article.store');
-// Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
-// Route::get('/article/{article}/edit', [ArticleController::class, 'edit'])->name('article.edit');
-// Route::put('/article/{article}', [ArticleController::class, 'update'])->name('article.update');
-// Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
-Route::resource('/article', ArticleController::class)->except('show');
-//dashboard
-Route::get('/dashboard', DashboardController::class)->name('dashboard');
 //laravel file manager
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomeController::class);
+Route::get('/article/{article}', [ArticleController::class, 'show'])->name('article.show');
+
 Route::get('/coba', function () {
     return view('coba');
 });

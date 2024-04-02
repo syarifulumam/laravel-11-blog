@@ -20,8 +20,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/article', ArticleController::class)->except('show');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
-    Route::resource('/category', CategoryController::class)->except(['show','create']);
-    Route::resource('/user', UserController::class)->except('show','create','store');
+    Route::resource('/category', CategoryController::class)->except(['show','create'])->middleware('Admin');
+    Route::resource('/user', UserController::class)->except('show','create','store')->middleware('Admin');
 });
 //laravel file manager
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
